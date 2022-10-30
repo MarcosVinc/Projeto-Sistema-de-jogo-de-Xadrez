@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "0ny6czq602LSa6XIxz2jXhKiW4RDFeaTB87TIDOn7xWTUSiY4mYUUklbuMCeB4a4JuU0FcpeZpqjcgdVaaMG6A==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Marcos Vinicius\\source\\repos\\ProjetoXadrex\\ProjetoXadrex.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Marcos Vinicius\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.21\\microsoft.netcore.app.host.win-x64.3.1.21.nupkg.sha512"
+  ],
+  "logs": []
+}
