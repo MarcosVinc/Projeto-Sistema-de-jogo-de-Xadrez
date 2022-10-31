@@ -7,13 +7,9 @@ namespace ProjetoXadrex
     {
         static void Main(string[] args)
         {
-            Posicao p;
-            p = new Posicao(3,4);
-            Console.WriteLine("Posição: " +p);
-            Console.ReadLine();
-
-    }
-
-
+            Tabuleirox tab = new Tabuleirox(8,8);
+            Console.WriteLine();
+          
+        }
     }
 }
