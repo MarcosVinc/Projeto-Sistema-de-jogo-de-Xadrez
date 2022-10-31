@@ -1,0 +1,14 @@
+C:\Users\Marcos Vinicius\source\repos\ProjetoXadrex\bin\Debug\netcoreapp3.1\ProjetoXadrex.exe
+C:\Users\Marcos Vinicius\source\repos\ProjetoXadrex\bin\Debug\netcoreapp3.1\ProjetoXadrex.deps.json
+C:\Users\Marcos Vinicius\source\repos\ProjetoXadrex\bin\Debug\netcoreapp3.1\ProjetoXadrex.runtimeconfig.json
+C:\Users\Marcos Vinicius\source\repos\ProjetoXadrex\bin\Debug\netcoreapp3.1\ProjetoXadrex.runtimeconfig.dev.json
+C:\Users\Marcos Vinicius\source\repos\ProjetoXadrex\bin\Debug\netcoreapp3.1\ProjetoXadrex.dll
+C:\Users\Marcos Vinicius\source\repos\ProjetoXadrex\bin\Debug\netcoreapp3.1\ProjetoXadrex.pdb
+C:\Users\Marcos Vinicius\source\repos\ProjetoXadrex\obj\Debug\netcoreapp3.1\ProjetoXadrex.csproj.AssemblyReference.cache
+C:\Users\Marcos Vinicius\source\repos\ProjetoXadrex\obj\Debug\netcoreapp3.1\ProjetoXadrex.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Marcos Vinicius\source\repos\ProjetoXadrex\obj\Debug\netcoreapp3.1\ProjetoXadrex.AssemblyInfoInputs.cache
+C:\Users\Marcos Vinicius\source\repos\ProjetoXadrex\obj\Debug\netcoreapp3.1\ProjetoXadrex.AssemblyInfo.cs
+C:\Users\Marcos Vinicius\source\repos\ProjetoXadrex\obj\Debug\netcoreapp3.1\ProjetoXadrex.csproj.CoreCompileInputs.cache
+C:\Users\Marcos Vinicius\source\repos\ProjetoXadrex\obj\Debug\netcoreapp3.1\ProjetoXadrex.dll
+C:\Users\Marcos Vinicius\source\repos\ProjetoXadrex\obj\Debug\netcoreapp3.1\ProjetoXadrex.pdb
+C:\Users\Marcos Vinicius\source\repos\ProjetoXadrex\obj\Debug\netcoreapp3.1\ProjetoXadrex.genruntimeconfig.cache
