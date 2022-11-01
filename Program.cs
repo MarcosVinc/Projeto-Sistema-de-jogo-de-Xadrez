@@ -11,12 +11,22 @@ namespace ProjetoXadrex
             try
             {
 
-                Tabuleirox tab = new Tabuleirox(8, 8);
-                tab.colocarPeca(new Torre(Cor.Preta, tab), new Posicao(0, 0));
-                tab.colocarPeca(new Torre(Cor.Preta, tab), new Posicao(1, 3));
-                tab.colocarPeca(new Rei(Cor.Branca, tab), new Posicao(0, 02));
+                PartidaDeXadrez partida = new PartidaDeXadrez();
+                while (!partida.terminada)
+                {
+                    Console.Clear();
+                    Tela.imprimirTabuleiro(partida.tab);
 
-                Tela.imprimirTabuleiro(tab);
+                    Console.Write("Origem: ");
+                    Posicao origem  = Tela.lerPosicaoXadrez().toPosicao();
+                    Console.Write("Destino: ");
+                    Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
+
+                    partida.ExecutaMovimento(origem, destino);
+
+
+                }
+                
             }
             catch (TabuleiroExeption tabex) 
             {
