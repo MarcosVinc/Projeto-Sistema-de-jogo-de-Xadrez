@@ -15,10 +15,28 @@ namespace Tabuleiro
             this.qteMovimentos = 0;
             this.tab = tab;
         }
-
         public void IncrementarQuantidadeDeMovimentos() 
         {
             qteMovimentos++;
+        }
+        public bool existeMovimentosPossiveis() 
+        {
+            bool[,] mat = movimentosPossiveis();
+            for (int i = 0; i < tab.linhas; i++) 
+            {
+                for (int j = 0; j < tab.colunas; j++) 
+                {
+                    if (mat[i, j] == true) 
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        public bool podeMover(Posicao pos) 
+        {
+            return movimentosPossiveis()[pos.Linha, pos.Coluna];
         }
 
         public abstract bool[,] movimentosPossiveis(); 

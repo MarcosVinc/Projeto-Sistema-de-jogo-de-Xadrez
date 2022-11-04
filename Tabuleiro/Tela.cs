@@ -70,7 +70,7 @@ namespace Tabuleiro
                 else
                 {
                     ConsoleColor aux = Console.ForegroundColor;
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Gray;
                     Console.Write(peca);
                     Console.ForegroundColor = aux;
 

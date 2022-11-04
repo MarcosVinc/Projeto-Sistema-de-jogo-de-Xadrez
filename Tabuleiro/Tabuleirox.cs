@@ -22,6 +22,12 @@
             return pecas[pos.Linha, pos.Coluna];        
         }
 
+        public bool existePeca(Posicao pos)
+        {
+            ValidarPosicao(pos);
+            return peca(pos) != null;
+        }
+
         public void colocarPeca(Peca p, Posicao pos) 
         {
             if (existePeca(pos))
@@ -48,11 +54,7 @@
             return aux;
         }
 
-        public bool existePeca(Posicao pos)
-        {
-            ValidarPosicao(pos);
-            return peca(pos) != null;
-        }
+
         public bool posicaoValida(Posicao pos) 
         {
             if (pos.Linha < 0 || pos.Linha >= linhas || pos.Coluna < 0 || pos.Coluna >= colunas) 
