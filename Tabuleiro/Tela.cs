@@ -13,12 +13,21 @@ namespace Tabuleiro
             Console.WriteLine();
             imprimirPecasCapturadas(partida);
             Console.WriteLine();
-            Console.WriteLine("Turno Partida: " + partida.turno);
-            Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
-            if (partida.xeque) 
+            Console.WriteLine("TURNO: " + partida.turno);
+            if (!partida.terminada) 
             {
-                Console.WriteLine("XEQUE!");
+                Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
+                if (partida.xeque)
+                {
+                    Console.WriteLine("XEQUE!");
+                }
             }
+            else 
+            {
+                Console.WriteLine("XEQUEMATE !");
+                Console.WriteLine("Vencedor: " + partida.JogadorAtual);
+            }
+
             
 
         }

@@ -41,7 +41,9 @@ namespace ProjetoXadrex
 
 
                 }
-                
+                Console.Clear();
+                Tela.imprimirPartida(partida);
+
             }
             catch (TabuleiroExeption e) 
             {

@@ -14,8 +14,7 @@ namespace xadrez
         public bool terminada { get; private set; }
         public bool xeque { get; private set; }
 
-
-
+        //Construtor 
         public PartidaDeXadrez()
         {
             tab = new Tabuleirox(8, 8);
@@ -28,6 +27,8 @@ namespace xadrez
 
             colocarPecas();
         }
+        //
+        #region Movimentos
         public Peca ExecutaMovimento(Posicao origem, Posicao destino)
         {
             Peca p = tab.retirarPeca(origem);
@@ -43,33 +44,41 @@ namespace xadrez
 
 
         }
-        public HashSet<Peca> pecasCapturadas(Cor cor)
+        public bool testeXequeMate(Cor cor)
         {
-            HashSet<Peca> aux = new HashSet<Peca>();
-            foreach (Peca x in capturadas)
-            {
-                if (x.cor == cor)
-                {
-                    aux.Add(x);
-                }
-            }
-            return aux;
-        }
 
-        public HashSet<Peca> pecasEmJogo(Cor cor)
-        {
-            HashSet<Peca> aux = new HashSet<Peca>();
-            foreach (Peca x in pecas)
+            if (!estaEmXeque(cor))
             {
-                if (x.cor == cor)
-                {
-                    aux.Add(x);
-                }
+                return false;
             }
-            aux.ExceptWith(pecasCapturadas(cor));
-            return aux;
-        }
+            foreach (Peca x in pecasEmJogo(cor))
+            {
+                bool[,] mat = x.movimentosPossiveis();
 
+                for (int i = 0; i < tab.linhas; i = i + 1)
+                {
+                    for (int k = 0; k < tab.colunas; k++)
+                    {
+                        if (mat[i, k])
+                        {
+                            Posicao origem = x.posicao;
+                            Posicao destino = new Posicao(i, k);
+                            Peca pecaCapturada = ExecutaMovimento(origem, destino);
+                            bool testeXeque = estaEmXeque(cor);
+                            desfazMovimento(origem, destino, pecaCapturada);
+                            if (!testeXeque)
+                            {
+                                return false;
+                            }
+
+                        }
+                    }
+                }
+
+            }
+            return true;
+
+        }
         public bool estaEmXeque(Cor cor)
         {
             Peca R = rei(cor);
@@ -107,47 +116,55 @@ namespace xadrez
             if (estaEmXeque(JogadorAtual))
             {
                 desfazMovimento(origem, destino, pecaCapturada);
-                throw new TabuleiroExeption("Você não pode se colocar em xeque");
+                throw new TabuleiroExeption("Você não pode se colocar em xeque!");
             }
             if (estaEmXeque(adversaria(JogadorAtual)))
             {
                 xeque = true;
             }
-            else 
-            { 
+            else
+            {
                 xeque = false;
             }
-
-            turno++;
-            mudaJogador();
+            if (testeXequeMate(adversaria(JogadorAtual)))
+            {
+                terminada = true;
+            }
+            else 
+            {
+                turno++;
+                mudaJogador();
+            }
         }
 
-        public void validarPosicaoDeOrigem(Posicao pos)
+        #endregion
+        //
+        #region Peças e Jogador
+        public HashSet<Peca> pecasEmJogo(Cor cor)
         {
-            if (tab.peca(pos) == null)
+            HashSet<Peca> aux = new HashSet<Peca>();
+            foreach (Peca x in pecas)
             {
-                throw new TabuleiroExeption("Não existe peça na posição de origem escolhida!");
+                if (x.cor == cor)
+                {
+                    aux.Add(x);
+                }
             }
-            if (JogadorAtual != tab.peca(pos).cor)
-            {
-                throw new TabuleiroExeption("A peça de origem escolhida não e sua");
-            }
-            if (!tab.peca(pos).existeMovimentosPossiveis())
-            {
-                throw new TabuleiroExeption("Não há movimentos possíves para a peça de origem escolhida");
-            }
+            aux.ExceptWith(pecasCapturadas(cor));
+            return aux;
         }
-
-        public void validarPosicaoDeDestino(Posicao origem, Posicao destino)
+        public HashSet<Peca> pecasCapturadas(Cor cor)
         {
-            if (!tab.peca(origem).podeMover(destino))
+            HashSet<Peca> aux = new HashSet<Peca>();
+            foreach (Peca x in capturadas)
             {
-
-                throw new TabuleiroExeption("Posição de destinho invalida!");
-
+                if (x.cor == cor)
+                {
+                    aux.Add(x);
+                }
             }
+            return aux;
         }
-
         public void colocarNovaPeca(char coluna, int linha, Peca peca)
         {
             tab.colocarPeca(peca, new PosicaoXadrez(coluna, linha).toPosicao());
@@ -202,11 +219,41 @@ namespace xadrez
                     return x;
                 }
 
-                
+
             }
 
             return null;
         }
+        #endregion
+        //
+        #region Validação
+        public void validarPosicaoDeOrigem(Posicao pos)
+        {
+            if (tab.peca(pos) == null)
+            {
+                throw new TabuleiroExeption("Não existe peça na posição de origem escolhida!");
+            }
+            if (JogadorAtual != tab.peca(pos).cor)
+            {
+                throw new TabuleiroExeption("A peça de origem escolhida não e sua");
+            }
+            if (!tab.peca(pos).existeMovimentosPossiveis())
+            {
+                throw new TabuleiroExeption("Não há movimentos possíves para a peça de origem escolhida");
+            }
+        }
+
+        public void validarPosicaoDeDestino(Posicao origem, Posicao destino)
+        {
+            if (!tab.peca(origem).podeMover(destino))
+            {
+
+                throw new TabuleiroExeption("Posição de destinho invalida!");
+
+            }
+        }
+
+        #endregion
 
     }
 }
