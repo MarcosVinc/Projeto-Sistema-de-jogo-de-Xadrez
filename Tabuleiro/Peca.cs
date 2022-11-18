@@ -8,7 +8,7 @@ namespace Tabuleiro
         public int qteMovimentos { get;  protected set; }
         public Tabuleirox tab { get;  protected set; }
 
-        public Peca( Cor cor, Tabuleirox tab)
+        public Peca(Tabuleirox tab, Cor cor)
         {
             this.posicao = null;
             this.cor = cor;
@@ -40,7 +40,7 @@ namespace Tabuleiro
         }
         public bool movimentoPossivel(Posicao pos) 
         {
-            return movimentosPossiveis()[pos.Linha, pos.Coluna];
+            return movimentosPossiveis()[pos.linha, pos.coluna];
         }
 
         public abstract bool[,] movimentosPossiveis(); 

@@ -6,71 +6,110 @@ namespace xadrez
 {
     class Rei : Peca
     {
-        public Rei( Cor cor, Tabuleirox tab) : base(cor, tab) { }
+        private PartidaDeXadrez partida;
+        public Rei( Tabuleirox tab, Cor cor, PartidaDeXadrez partida) : base(tab,cor)
+        {
+            this.partida = partida;
+        }
 
         public override string ToString()
         {
             return "R";
         }
-        private bool podeMover(Posicao pos) 
+        private bool podeMover(Posicao pos)
         {
             Peca p = tab.peca(pos);
             return p == null || p.cor != this.cor;
         }
-        public override bool[,] movimentosPossiveis() 
+        private bool testeTorreParaRoque(Posicao pos)
+        {
+            Peca p = tab.peca(pos);
+            return p != null && p is Torre & p.cor == cor && p.qteMovimentos == 0;
+
+        }
+        public override bool[,] movimentosPossiveis()
         {
             bool[,] mat = new bool[tab.linhas, tab.colunas];
+
             Posicao pos = new Posicao(0, 0);
 
-            //Norte
-            pos.definirValores(posicao.Linha - 1, posicao.Coluna);
-            if(tab.posicaoValida(pos) && podeMover(pos)) 
-            {
-                mat[pos.Linha, pos.Coluna] = true;
-            }
-            //Ne
-            pos.definirValores(posicao.Linha - 1, posicao.Coluna +1);
+            // acima
+            pos.definirValores(posicao.linha - 1, posicao.coluna);
             if (tab.posicaoValida(pos) && podeMover(pos))
             {
-                mat[pos.Linha, pos.Coluna] = true;
+                mat[pos.linha, pos.coluna] = true;
             }
-            //Le
-            pos.definirValores(posicao.Linha , posicao.Coluna +1);
+            // ne
+            pos.definirValores(posicao.linha - 1, posicao.coluna + 1);
             if (tab.posicaoValida(pos) && podeMover(pos))
             {
-                mat[pos.Linha, pos.Coluna] = true;
+                mat[pos.linha, pos.coluna] = true;
             }
-            //Se
-            pos.definirValores(posicao.Linha  +1, posicao.Coluna +1);
+            // direita
+            pos.definirValores(posicao.linha, posicao.coluna + 1);
             if (tab.posicaoValida(pos) && podeMover(pos))
             {
-                mat[pos.Linha, pos.Coluna] = true;
+                mat[pos.linha, pos.coluna] = true;
             }
-            //Sul
-            pos.definirValores(posicao.Linha + 1, posicao.Coluna);
+            // se
+            pos.definirValores(posicao.linha + 1, posicao.coluna + 1);
             if (tab.posicaoValida(pos) && podeMover(pos))
             {
-                mat[pos.Linha, pos.Coluna] = true;
+                mat[pos.linha, pos.coluna] = true;
             }
-            //So
-            pos.definirValores(posicao.Linha + 1, posicao.Coluna -1);
+            // abaixo
+            pos.definirValores(posicao.linha + 1, posicao.coluna);
             if (tab.posicaoValida(pos) && podeMover(pos))
             {
-                mat[pos.Linha, pos.Coluna] = true;
+                mat[pos.linha, pos.coluna] = true;
+            }
+            // so
+            pos.definirValores(posicao.linha + 1, posicao.coluna - 1);
+            if (tab.posicaoValida(pos) && podeMover(pos))
+            {
+                mat[pos.linha, pos.coluna] = true;
+            }
+            // esquerda
+            pos.definirValores(posicao.linha, posicao.coluna - 1);
+            if (tab.posicaoValida(pos) && podeMover(pos))
+            {
+                mat[pos.linha, pos.coluna] = true;
+            }
+            // no
+            pos.definirValores(posicao.linha - 1, posicao.coluna - 1);
+            if (tab.posicaoValida(pos) && podeMover(pos))
+            {
+                mat[pos.linha, pos.coluna] = true;
             }
 
-            //Oe
-            pos.definirValores(posicao.Linha , posicao.Coluna -1);
-            if (tab.posicaoValida(pos) && podeMover(pos))
+            // #jogadaespecial roque
+            if (qteMovimentos == 0 && !partida.xeque)
             {
-                mat[pos.Linha, pos.Coluna] = true;
+                // #jogadaespecial roque pequeno
+                Posicao posT1 = new Posicao(posicao.linha, posicao.coluna + 3);
+                if (testeTorreParaRoque(posT1))
+                {
+                    Posicao p1 = new Posicao(posicao.linha, posicao.coluna + 1);
+                    Posicao p2 = new Posicao(posicao.linha, posicao.coluna + 2);
+                    if (tab.peca(p1) == null && tab.peca(p2) == null)
+                    {
+                        mat[posicao.linha, posicao.coluna + 2] = true;
+                    }
+                }
+                // #jogadaespecial roque grande
+                Posicao posT2 = new Posicao(posicao.linha, posicao.coluna - 4);
+                if (testeTorreParaRoque(posT2))
+                {
+                    Posicao p1 = new Posicao(posicao.linha, posicao.coluna - 1);
+                    Posicao p2 = new Posicao(posicao.linha, posicao.coluna - 2);
+                    Posicao p3 = new Posicao(posicao.linha, posicao.coluna - 3);
+                    if (tab.peca(p1) == null && tab.peca(p2) == null && tab.peca(p3) == null)
+                    {
+                        mat[posicao.linha, posicao.coluna - 2] = true;
+                    }
+                }
             }
-            //No
-            pos.definirValores(posicao.Linha - 1, posicao.Coluna -1);
-            if (tab.posicaoValida(pos) && podeMover(pos))
-            {
-                mat[pos.Linha, pos.Coluna] = true;
-            }
+
             return mat;
         }
     }
